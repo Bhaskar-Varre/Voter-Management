@@ -13,7 +13,7 @@ export async function GET(request) {
   const relegion = searchParams.get('relegion');
   const sentiment = searchParams.get('sentiment');
 
-  console.log('API GET /voters received params:', { page, size, search, booth, gender, minAge, maxAge, caste, relegion, sentiment });
+  // console.log('API GET /voters received params:', { page, size, search, booth, gender, minAge, maxAge, caste, relegion, sentiment });
 
   let query = supabase.from('voters').select('id, age, booth, c_house_no, caste, fm_name_en, gender, lastname_en, mobile_no, polling_st_address, relation, relationname, relationnameen, relationsurname, relationsurnameen, relegion, surname, vid_no, fm_name_v1, lastname_v1, polling_st_address, "comment 1", "comment 2", sentiment', { count: 'exact' });
 
@@ -53,7 +53,7 @@ export async function GET(request) {
   const from = page * size;
   const to = from + size - 1;
   query = query.range(from, to);
-  console.log('Supabase query constructed:', query.url); // Log the constructed query URL
+  // console.log('Supabase query constructed:', query.url); // Log the constructed query URL
 
   const { data: voters, count, error } = await query;
 

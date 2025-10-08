@@ -11,7 +11,7 @@ export async function PUT(request, { params }) {
     .select();
 
   if (error) {
-    console.error('Supabase PUT error:', error);
+    // console.error('Supabase PUT error:', error);
     return new Response(JSON.stringify({ message: 'Failed to update voter', error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 
@@ -31,7 +31,7 @@ export async function DELETE(request, { params }) {
     .eq('id', parseInt(id));
 
   if (error) {
-    console.error('Supabase DELETE error:', error);
+    // console.error('Supabase DELETE error:', error);
     return new Response(JSON.stringify({ message: 'Failed to delete voter', error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 
