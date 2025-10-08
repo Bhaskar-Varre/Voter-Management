@@ -1,0 +1,94 @@
+/* .voter-table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fff;
+  }
+  
+  .table-header, .table-row {
+   
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .table-header {
+    
+    background-color: #f7f7f7;
+    font-weight: bold;
+    padding: 10px 0;
+  } */
+
+  /* Main voter table container for horizontal scrolling */
+.voter-table {
+    overflow-x: auto;
+    white-space: nowrap; /* Ensures content stays on one line within cells */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff; /* Consistent background */
+  }
+  
+  /* Flex container for table header and rows */
+  .table-header,
+  .table-row {
+    display: flex;
+    min-width: max-content; /* Allows content to define minimum width, enabling scroll */
+    align-items: center; /* Vertically align content */
+    border-bottom: 1px solid #e0e0e0; /* Consistent border */
+  }
+  
+  /* Header specific styles */
+  .table-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    padding: 10px 0; /* Adjust padding for better look */
+  }
+  
+  /* Alternating row background for readability */
+  .table-row:nth-child(even) {
+    background-color: #fcfcfc; /* Lighter shade for even rows */
+  }
+  .table-row:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+  }
+  
+  /* Table cell styling */
+  .table-cell {
+    flex: 0 0 150px; /* Fixed width for cells, adjust as needed */
+    padding: 8px 12px;
+    border-right: 1px solid #e0e0e0; /* Add right border for cell separation */
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Remove right border from the last cell in a row */
+.table-cell:last-child {
+  border-right: none;
+}
+  
+  /* Action buttons within cells */
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Allow buttons to wrap to next line on smaller screens */
+    gap: 8px; /* Space between buttons */
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px; /* Ensure consistent padding for action buttons */
+  }
+  
+  .action-buttons .btn {
+    margin-right: 0; /* Remove existing margin-right */
+    /* Add more styling for consistent button appearance, e.g., min-width, height, font-size */
+    min-width: 70px; /* Ensure a minimum width for buttons */
+    height: 32px; /* Consistent height */
+    font-size: 13px; /* Adjust font size */
+    padding: 4px 8px; /* Adjust padding for button text */
+  }
+  
+
+
+
