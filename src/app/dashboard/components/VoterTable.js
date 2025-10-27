@@ -8,29 +8,35 @@ import './VoterTable.css';
 // Define your display fields and column headers
 const FIELD_MAP = [
   { key: 'id', label: 'ID' },
-  { key: 'age', label: 'Age' },
+  { key: 'vid_no', label: 'Voter ID (VID)' },
   { key: 'booth', label: 'Booth' },
-  { key: 'c_house_no', label: 'C House No' },
-  { key: 'caste', label: 'Caste' },
-  { key: 'fm_name_en', label: 'First Name (EN)' },
+  { key: 'age', label: 'Age' },
   { key: 'gender', label: 'Gender' },
+  { key: 'fm_name_en', label: 'First Name (EN)' },
   { key: 'lastname_en', label: 'Last Name (EN)' },
-  { key: 'mobile_no', label: 'Mobile No' },
-  { key: 'polling_st_address', label: 'Polling Station Address' },
+
   { key: 'relation', label: 'Relation' },
   { key: 'relationname', label: 'Relation Name' },
   { key: 'relationnameen', label: 'Relation Name (EN)' },
   { key: 'relationsurname', label: 'Relation Surname' },
   { key: 'relationsurnameen', label: 'Relation Surname (EN)' },
-  { key: 'relegion', label: 'Religion' },
-  { key: 'surname', label: 'Surname' },
-  { key: 'vid_no', label: 'Voter ID (VID)' },
-  { key: 'fm_name_v1', label: 'First Name (V1)' },
-  { key: 'lastname_v1', label: 'Last Name (V1)' },
-  { key: 'pollingst_addresss', label: 'Polling Station Address (S)' },
-  { key: 'comment1', label: 'Comment 1' },
-  { key: 'comment2', label: 'Comment 2' },
+  { key: 'street', label: 'Street' },
   { key: 'sentiment', label: 'Sentiment' },
+
+
+  //  { key: 'c_house_no', label: 'C House No' },
+  // { key: 'caste', label: 'Caste' },
+  // { key: 'mobile_no', label: 'Mobile No' },
+  // { key: 'polling_st_address', label: 'Polling Station Address' },
+
+  // { key: 'relegion', label: 'Religion' },
+  // { key: 'surname', label: 'Surname' },
+  // { key: 'fm_name_v1', label: 'First Name (V1)' },
+  // { key: 'lastname_v1', label: 'Last Name (V1)' },
+  // { key: 'pollingst_addresss', label: 'Polling Station Address (S)' },
+  // { key: 'comment1', label: 'Comment 1' },
+  // { key: 'comment2', label: 'Comment 2' },
+
 ];
 
 
@@ -84,12 +90,12 @@ const VoterTable = React.memo(({ voters = [], onEdit, onDelete, isAdmin, isVolun
 
       <div className="table-body" style={{ height: '500px' }}>
         <AutoSizer>
-          {({ height}) => (
+          {({ height }) => (
             <List
               height={height}
               itemCount={voters.length}
               itemSize={50}
-              width={3800}
+              width={2300}
               itemData={{ voters, onEdit, onDelete, isAdmin, isVolunteer }}
             >
               {VoterRow}

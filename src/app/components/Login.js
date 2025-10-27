@@ -11,20 +11,27 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
-
+     
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     const result = await login(email, password);
-    
+
     if (result.success) {
-      router.push('/dashboard');
+      const isProd = process.env.NODE_ENV === 'production';
+
+      // Determine the base path
+      const basePath = isProd
+        ? '/voter-management/dashboard'
+        : '/dashboard';
+
+      router.push(basePath);
     } else {
       setError(result.message);
     }
-    
+
     setLoading(false);
   };
 
@@ -37,6 +44,7 @@ function Login() {
             <label className="form-label">Email</label>
             <input
               type="email"
+               autoComplete="email"
               className="form-control"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -48,6 +56,7 @@ function Login() {
             <label className="form-label">Password</label>
             <input
               type="password"
+              autoComplete="current-password"
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -55,7 +64,15 @@ function Login() {
               placeholder="Enter your password"
             />
           </div>
-          {error && <div className="error">{error}</div>}
+          {error && (
+            <div
+              className="alert alert-danger"
+              style={{ marginTop: '10px', padding: '10px', borderRadius: '4px' }}
+            >
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
             className="btn btn-primary"

@@ -27,11 +27,16 @@ function Analytics({ stats, voters }) {
     .map(([booth, count]) => ({ booth, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 10); // Show top 10 booths
+  const sentimentData = [
+    { name: 'Positive', value: voters.filter(v => v.sentiment === 'Positive').length, color: '#00C49F' },
+    { name: 'Neutral', value: voters.filter(v => v.sentiment === 'Neutral').length, color: '#FFBB28' },
+    { name: 'Negative', value: voters.filter(v => v.sentiment === 'Negative').length, color: '#FF4C4C' }
+  ];
 
   return (
     <div className="analytics-section">
       <h2>Analytics Dashboard</h2>
-      
+
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-number">{stats.total}</div>
@@ -91,17 +96,33 @@ function Analytics({ stats, voters }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
-
+        {/*  New Sentiment Pie Chart (Replaces Booth Chart) */}
         <div className="chart-card">
-          <h3>Top Booths by Voter Count</h3>
+          <h3>Voter Sentiment Distribution</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
+            <div style={{ color: '#00C49F' }}>Positive: {sentimentData.find(d => d.name === 'Positive')?.value || 0}</div>
+            <div style={{ color: '#FFBB28' }}>Neutral: {sentimentData.find(d => d.name === 'Neutral')?.value || 0}</div>
+            <div style={{ color: '#FF4C4C' }}>Negative: {sentimentData.find(d => d.name === 'Negative')?.value || 0}</div>
+          </div>
+
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={boothChartData} layout="horizontal">
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" />
-              <YAxis dataKey="booth" type="category" width={100} />
+            <PieChart>
+              <Pie
+                data={sentimentData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {sentimentData.map((entry, index) => (
+                  <Cell key={`sentiment-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
               <Tooltip />
-              <Bar dataKey="count" fill="#82ca9d" />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
@@ -110,3 +131,4 @@ function Analytics({ stats, voters }) {
 }
 
 export default Analytics;
+
