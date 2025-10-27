@@ -15,7 +15,7 @@ export async function GET(request) {
 
   // console.log('API GET /voters received params:', { page, size, search, booth, gender, minAge, maxAge, caste, relegion, sentiment });
 
-  let query = supabase.from('voters').select('id, age, booth, c_house_no, caste, fm_name_en, gender, lastname_en, mobile_no, polling_st_address, relation, relationname, relationnameen, relationsurname, relationsurnameen, relegion, surname, vid_no, fm_name_v1, lastname_v1, polling_st_address, "comment 1", "comment 2", sentiment', { count: 'exact' });
+  let query = supabase.from('voters').select('id, age, booth, c_house_no, caste, fm_name_en, gender, lastname_en, mobile_no, polling_st_address, relation, relationname, relationnameen, relationsurname, relationsurnameen, relegion, surname, vid_no, fm_name_v1, lastname_v1, polling_st_address, pollingst_addresss, "comment 1", "comment 2", sentiment', { count: 'exact' });
 
   if (search) {
     const searchTerm = `%${search.toLowerCase()}%`;
@@ -79,10 +79,10 @@ export async function POST(request) {
 
   for (const newVoterData of newVotersData) {
     let voterToSave = { ...newVoterData };
-    
+
     // Supabase handles ID generation, so remove local ID if present for new records
     if (voterToSave.id && typeof voterToSave.id === 'string' && voterToSave.id.startsWith('V')) {
-        delete voterToSave.id; // Remove client-generated ID for new records
+      delete voterToSave.id; // Remove client-generated ID for new records
     }
 
     let upsertResult;

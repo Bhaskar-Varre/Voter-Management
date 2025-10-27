@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-
+import './VoterModal.css';
 
 const INITIAL_VOTER = {
   id: '',
@@ -36,7 +36,14 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
 
   useEffect(() => {
     if (voter) {
-      setFormData({ ...INITIAL_VOTER, ...voter });
+      const normalizedSentiment = voter.sentiment?.toLowerCase().trim();
+      setFormData({
+        ...INITIAL_VOTER, ...voter,
+        sentiment: ['positive', 'neutral', 'negative'].includes(normalizedSentiment)
+          ? normalizedSentiment
+          : 'neutral'
+      });
+
     } else {
       // Removing client-side ID generation as the database will handle it.
       setFormData(INITIAL_VOTER);
@@ -67,7 +74,7 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
   };
 
   const validateForm = () => {
-    const requiredFields = ['firstName', 'lastName', 'age', 'gender', 'booth', 'address', 'phone', 'voterId'];
+    const requiredFields = ['voterId', 'firstName', 'lastName', 'age', 'gender', 'booth', 'address', 'phone'];
     const newErrors = {};
 
     requiredFields.forEach(field => {
@@ -95,7 +102,7 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
     if (!isAdmin && !isVolunteer) {
       return;
     }
-    
+
     if (!validateForm()) return;
 
     // Send as an array of 1 object as expected by backend
@@ -120,21 +127,28 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
       alert('Error saving voter. Check console for details.');
     }
   };
+  const renderInput = (label, name, type = 'text', required = false, alwaysDisabled = false) => {
+    // Determine if field should be disabled
+    const isDisabled = alwaysDisabled // explicitly disabled (like Voter ID when editing)
+      || (!isAdmin && !isVolunteer) // viewers cannot edit
+      || (isVolunteer && name !== 'caste' && name !== 'mobile_no'); // volunteers restricted to certain fields
 
-  const renderInput = (label, name, type = 'text', required = false) => (
-    <div className="form-group">
-      <label>{label}{required ? ' *' : ''}</label>
-      <input
-        type={type}
-        name={name}
-        value={formData[name] || ''}
-        onChange={handleChange}
-        className={`form-control ${errors[name] ? 'error' : ''}`}
-        disabled={!isAdmin && !isVolunteer || (isVolunteer && name !== 'caste' && name !== 'mobile_no')}
-      />
-      {errors[name] && <div className="error-text">{errors[name]}</div>}
-    </div>
-  );
+    return (
+      <div className="form-group">
+        <label>{label}{required ? ' *' : ''}</label>
+        <input
+          type={type}
+          name={name}
+          value={formData[name] || ''}
+          onChange={handleChange}
+          className={`form-control ${errors[name] ? 'error' : ''}`}
+          disabled={isDisabled}
+        />
+        {errors[name] && <div className="error-text">{errors[name]}</div>}
+      </div>
+    );
+  };
+
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -146,15 +160,13 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
 
         <form onSubmit={handleSubmit}>
           <div className="form-row">
-            {renderInput('First Name', 'firstName', 'text', true)}
-            {renderInput('Last Name', 'lastName', 'text', true)}
+            {renderInput('Voter ID', 'vid_no', 'text', true, !!voter)}
+            {renderInput('Booth', 'booth', 'text', true)}
           </div>
-
           <div className="form-row">
-            {renderInput('Surname', 'surname')}
-            {renderInput('Voter ID', 'voterId', 'text', true)}
+            <div className="form-row">{renderInput('First Name (EN)', 'fm_name_en')}</div>
+            <div className="form-row">{renderInput('Last Name (EN)', 'lastname_en')}</div>
           </div>
-
           <div className="form-row">
             {renderInput('Age', 'age', 'number', true)}
             <div className="form-group">
@@ -167,38 +179,65 @@ function VoterModal({ voter, onSave, onClose, isAdmin, isVolunteer }) {
             </div>
           </div>
 
-          {renderInput('Booth', 'booth', 'text', true)}
+
           {renderInput('Mobile No', 'mobile_no', 'tel', true)}
-          {renderInput('Polling Station Address', 'polling_st_address', 'text', true)}
+          {renderInput('Street', 'pollingst_addresss')}
+
 
           {/* Optional fields */}
           <hr />
           <h4>Additional Details</h4>
           <div className="form-row">{renderInput('C_House_No', 'c_house_no')}</div>
           <div className="form-row">{renderInput('Caste', 'caste')}</div>
-          <div className="form-row">{renderInput('First Name (EN)', 'fm_name_en')}</div>
-          <div className="form-row">{renderInput('Last Name (EN)', 'lastname_en')}</div>
+
           <div className="form-row">{renderInput('Relation', 'relation')}</div>
           <div className="form-row">{renderInput('Relation Name', 'relationname')}</div>
           <div className="form-row">{renderInput('Relation Name (EN)', 'relationnameen')}</div>
           <div className="form-row">{renderInput('Relation Surname', 'relationsurname')}</div>
           <div className="form-row">{renderInput('Relation Surname (EN)', 'relationsurnameen')}</div>
           <div className="form-row">{renderInput('Religion', 'relegion')}</div>
-          <div className="form-row">{renderInput('Surname', 'surname')}</div>
-          <div className="form-row">{renderInput('Voter ID (VID)', 'vid_no')}</div>
+          {/* <div className="form-row">{renderInput('Surname', 'surname')}</div>
+          <div className="form-row">{renderInput('Voter ID (VID)', 'vid_no')}</div> */}
           <div className="form-row">{renderInput('First Name (V1)', 'fm_name_v1')}</div>
           <div className="form-row">{renderInput('Last Name (V1)', 'lastname_v1')}</div>
-          <div className="form-row">{renderInput('Polling Station Address (S)', 'pollingst_addresss')}</div>
+
+          <div className="form-row">{renderInput('Polling Station Address', 'polling_st_address', 'text', true)}
+          </div>
+
           <div className="form-row">{renderInput('Comment 1', 'comment1')}</div>
           <div className="form-row">{renderInput('Comment 2', 'comment2')}</div>
+
           <div className="form-row">
             <div className="form-group">
               <label>Sentiment</label>
-              <select name="sentiment" value={formData.sentiment} onChange={handleChange} className="form-control"
-                      disabled={!isAdmin && !isVolunteer || (isVolunteer && name !== 'caste' && name !== 'mobile_no')}>
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-                <option value="neutral">Neutral</option>
+              <select name="sentiment"
+                value={formData.sentiment}
+                onChange={handleChange}
+                className="form-control"
+                disabled={!isAdmin && !isVolunteer} // only admin/volunteer can change
+                style={{
+                  backgroundColor:
+                    formData.sentiment === 'positive'
+                      ? '#d4edda' // light green
+                      : formData.sentiment === 'neutral'
+                        ? '#fff3cd' // light yellow
+                        : formData.sentiment === 'negative'
+                          ? '#f8d7da' // light red
+                          : 'white',
+                  color:
+                    formData.sentiment === 'positive'
+                      ? '#155724'
+                      : formData.sentiment === 'neutral'
+                        ? '#856404'
+                        : formData.sentiment === 'negative'
+                          ? '#721c24'
+                          : 'black',
+                  fontWeight: 'bold',
+                }}
+              >
+                <option value="positive" style={{ color: '#00C49F' }}>Positive</option>
+                <option value="negative" style={{ color: '#FFBB28' }}>Negative</option>
+                <option value="neutral" style={{ color: '#FF4C4C' }}>Neutral</option>
               </select>
             </div>
           </div>
