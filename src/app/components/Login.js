@@ -67,7 +67,7 @@ function Login() {
           {error && (
             <div
               className="alert alert-danger"
-              style={{ marginTop: '10px', padding: '10px', borderRadius: '4px' }}
+              style={{ marginTop: '10px', padding: '10px', borderRadius: '4px',color: 'red'  }}
             >
               {error}
             </div>
@@ -82,7 +82,6 @@ function Login() {
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
-        {/* Demo credentials removed as they are now handled by the database */}
       </div>
     </div>
   );

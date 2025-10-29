@@ -20,7 +20,7 @@ const FIELD_MAP = [
   { key: 'relationnameen', label: 'Relation Name (EN)' },
   { key: 'relationsurname', label: 'Relation Surname' },
   { key: 'relationsurnameen', label: 'Relation Surname (EN)' },
-  { key: 'street', label: 'Street' },
+  { key: 'pollingst_addresss', label: 'Street' },
   { key: 'sentiment', label: 'Sentiment' },
 
 

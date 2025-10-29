@@ -11,19 +11,21 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
   const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
+      
     }
-    setLoading(false);
+    setAuthLoading(false);
+    // setLoading(false);
   }, []);
 
   const login = async (email, password) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -44,11 +46,12 @@ export function AuthProvider({ children }) {
         return { success: false, message: data.message || 'Login failed' };
       }
     } catch (error) {
-      console.error('Login error:', error);
+      
       return { success: false, message: 'Network error or server unavailable' };
-    } finally {
-      setLoading(false);
-    }
+    } 
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
   const logout = () => {
@@ -68,7 +71,7 @@ export function AuthProvider({ children }) {
     isAuthenticated,
     isAdmin,
     isVolunteer,
-    loading
+    loading: authLoading
   };
 
   return (
