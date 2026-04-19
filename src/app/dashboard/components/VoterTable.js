@@ -7,21 +7,7 @@ import './VoterTable.css';
 
 // Define your display fields and column headers
 const FIELD_MAP = [
-  // { key: 'id', label: 'ID' },
-  // { key: 'vid_no', label: 'Voter ID (VID)' },
-  // { key: 'booth', label: 'Booth' },
-  // { key: 'age', label: 'Age' },
-  // { key: 'gender', label: 'Gender' },
-  // { key: 'fm_name_en', label: 'First Name (EN)' },
-  // { key: 'lastname_en', label: 'Last Name (EN)' },
-
-  // { key: 'relation', label: 'Relation' },
-  // { key: 'relationname', label: 'Relation Name' },
-  // { key: 'relationnameen', label: 'Relation Name (EN)' },
-  // { key: 'relationsurname', label: 'Relation Surname' },
-  // { key: 'relationsurnameen', label: 'Relation Surname (EN)' },
-  // { key: 'street', label: 'Street' },
-  // { key: 'sentiment', label: 'Sentiment' },
+ 
 
 { key: 'id', label: 'ID' },
   { key: 'vid_no', label: 'Voter ID (VID)' },
@@ -37,18 +23,7 @@ const FIELD_MAP = [
   { key: 'influencer', label: 'Influencer' },
   { key: 'sentiment', label: 'Sentiment' },
   { key: 'comment_primary', label: 'Comment' },
-  //  { key: 'c_house_no', label: 'C House No' },
-  // { key: 'caste', label: 'Caste' },
-  // { key: 'mobile_no', label: 'Mobile No' },
-  // { key: 'polling_st_address', label: 'Polling Station Address' },
-
-  // { key: 'relegion', label: 'Religion' },
-  // { key: 'surname', label: 'Surname' },
-  // { key: 'fm_name_v1', label: 'First Name (V1)' },
-  // { key: 'lastname_v1', label: 'Last Name (V1)' },
-  // { key: 'pollingst_addresss', label: 'Polling Station Address (S)' },
-  // { key: 'comment1', label: 'Comment 1' },
-  // { key: 'comment2', label: 'Comment 2' },
+  
 
 ];
 

@@ -1,26 +1,4 @@
-/* .voter-table {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    background: #fff;
-  }
-  
-  .table-header, .table-row {
-   
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .table-header {
-    
-    background-color: #f7f7f7;
-    font-weight: bold;
-    padding: 10px 0;
-  } */
 
-  /* Main voter table container for horizontal scrolling */
 .voter-table {
     overflow-x: auto;
     white-space: nowrap; /* Ensures content stays on one line within cells */
