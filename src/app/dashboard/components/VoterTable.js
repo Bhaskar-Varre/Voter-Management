@@ -7,23 +7,36 @@ import './VoterTable.css';
 
 // Define your display fields and column headers
 const FIELD_MAP = [
-  { key: 'id', label: 'ID' },
+  // { key: 'id', label: 'ID' },
+  // { key: 'vid_no', label: 'Voter ID (VID)' },
+  // { key: 'booth', label: 'Booth' },
+  // { key: 'age', label: 'Age' },
+  // { key: 'gender', label: 'Gender' },
+  // { key: 'fm_name_en', label: 'First Name (EN)' },
+  // { key: 'lastname_en', label: 'Last Name (EN)' },
+
+  // { key: 'relation', label: 'Relation' },
+  // { key: 'relationname', label: 'Relation Name' },
+  // { key: 'relationnameen', label: 'Relation Name (EN)' },
+  // { key: 'relationsurname', label: 'Relation Surname' },
+  // { key: 'relationsurnameen', label: 'Relation Surname (EN)' },
+  // { key: 'street', label: 'Street' },
+  // { key: 'sentiment', label: 'Sentiment' },
+
+{ key: 'id', label: 'ID' },
   { key: 'vid_no', label: 'Voter ID (VID)' },
   { key: 'booth', label: 'Booth' },
   { key: 'age', label: 'Age' },
   { key: 'gender', label: 'Gender' },
-  { key: 'fm_name_en', label: 'First Name (EN)' },
-  { key: 'lastname_en', label: 'Last Name (EN)' },
-
+  { key: 'fm_name_en', label: 'First Name' },
+  { key: 'surname', label: 'Last Name' },
   { key: 'relation', label: 'Relation' },
-  { key: 'relationname', label: 'Relation Name' },
-  { key: 'relationnameen', label: 'Relation Name (EN)' },
-  { key: 'relationsurname', label: 'Relation Surname' },
-  { key: 'relationsurnameen', label: 'Relation Surname (EN)' },
-  { key: 'street', label: 'Street' },
+  { key: 'relationnameen', label: 'Relation Name' },
+  { key: 'mobile_no', label: 'Mobile No' },
+  { key: 'area_or_colony', label: 'Area' },
+  { key: 'influencer', label: 'Influencer' },
   { key: 'sentiment', label: 'Sentiment' },
-
-
+  { key: 'comment_primary', label: 'Comment' },
   //  { key: 'c_house_no', label: 'C House No' },
   // { key: 'caste', label: 'Caste' },
   // { key: 'mobile_no', label: 'Mobile No' },
